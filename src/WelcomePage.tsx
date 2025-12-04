@@ -250,7 +250,7 @@ function AuthContent() {
                   <span className="text-gray-600">•</span>
                   <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">Terms of Service</a>
                 </div>
-                <p className="text-xs text-gray-600">© 2024 Digital Hub. All rights reserved.</p>
+                <p className="text-xs text-gray-600">© 2025 Digital Hub. All rights reserved.</p>
               </div>
             </div>
           </div>

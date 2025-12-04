@@ -4,8 +4,9 @@ import Dashboard from './components/Dashboard';
 import LearningHub from './components/LearningHub';
 import CertificateCompliance from './components/CertificateCompliance';
 import ServiceRequest from './components/ServiceRequest';
+import ProfileUpdate from './components/ProfileUpdate';
 
-type PageType = 'dashboard' | 'learning' | 'certificates' | 'services' | 'analytics' | 'projects' | 'settings';
+type PageType = 'dashboard' | 'learning' | 'certificates' | 'services' | 'analytics' | 'projects' | 'profile';
 
 function App() {
   const { signOut, user } = useAuthenticator();
@@ -21,12 +22,12 @@ function App() {
         return <CertificateCompliance />;
       case 'services':
         return <ServiceRequest />;
+      case 'profile':
+        return <ProfileUpdate />;
       case 'analytics':
         return <div className="p-6"><h1 className="text-3xl font-bold text-white">Analytics</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
       case 'projects':
         return <div className="p-6"><h1 className="text-3xl font-bold text-white">Projects</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
-      case 'settings':
-        return <div className="p-6"><h1 className="text-3xl font-bold text-white">Settings</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
       default:
         return <Dashboard />;
     }
@@ -135,19 +136,18 @@ function App() {
             </svg>
           </button>
 
-          {/* Settings */}
+          {/* Profile Settings */}
           <button
-            onClick={() => setCurrentPage('settings')}
+            onClick={() => setCurrentPage('profile')}
             className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-              currentPage === 'settings'
+              currentPage === 'profile'
                 ? 'bg-[#2d2d32] text-orange-500'
                 : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
             }`}
-            title="Settings"
+            title="Profile Settings"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </button>
         </nav>
@@ -161,7 +161,8 @@ function App() {
             <div className="flex items-center space-x-2 sm:space-x-4 min-w-0">
               <h1 className="text-base sm:text-lg font-medium text-white truncate capitalize">
                 {currentPage === 'certificates' ? 'Certificate of Compliance' : 
-                 currentPage === 'services' ? 'Service Request' : currentPage}
+                 currentPage === 'services' ? 'Service Request' :
+                 currentPage === 'profile' ? 'Profile Settings' : currentPage}
               </h1>
               <span className="text-gray-500 hidden sm:inline">/</span>
               <span className="text-gray-400 text-xs sm:text-sm hidden sm:inline">Home</span>
