@@ -16,7 +16,6 @@ interface ServiceRequestData {
 
 function ServiceRequest() {
   const [showRequestForm, setShowRequestForm] = useState(false);
-  const [selectedService, setSelectedService] = useState<ServiceType>('');
   const [formData, setFormData] = useState({
     serviceType: '',
     requestTitle: '',
@@ -159,7 +158,6 @@ function ServiceRequest() {
   };
 
   const handleServiceSelect = (serviceId: ServiceType) => {
-    setSelectedService(serviceId);
     setFormData({ ...formData, serviceType: serviceId });
     setShowRequestForm(true);
   };
@@ -175,7 +173,6 @@ function ServiceRequest() {
     e.preventDefault();
     console.log('Form submitted:', formData);
     setShowRequestForm(false);
-    setSelectedService('');
     // Reset form
     setFormData({
       serviceType: '',
@@ -207,10 +204,7 @@ function ServiceRequest() {
             <div className="sticky top-0 bg-[#18181b] border-b border-[#2d2d32] px-6 py-4 flex items-center justify-between">
               <h2 className="text-xl font-semibold text-white">New Service Request</h2>
               <button
-                onClick={() => {
-                  setShowRequestForm(false);
-                  setSelectedService('');
-                }}
+                onClick={() => setShowRequestForm(false)}
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -389,10 +383,7 @@ function ServiceRequest() {
               <div className="flex items-center justify-end space-x-4 pt-4 border-t border-[#2d2d32]">
                 <button
                   type="button"
-                  onClick={() => {
-                    setShowRequestForm(false);
-                    setSelectedService('');
-                  }}
+                  onClick={() => setShowRequestForm(false)}
                   className="px-6 py-2 bg-[#2d2d32] hover:bg-[#3a3a42] text-white rounded-lg transition-colors"
                 >
                   Cancel
