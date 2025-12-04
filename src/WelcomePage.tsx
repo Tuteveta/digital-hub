@@ -110,7 +110,7 @@ function AuthContent() {
                     Footer() {
                       return (
                         <div className="text-center mt-6 pt-6 border-t border-[#2d2d32]">
-                          <p className="text-xs text-gray-500">Powered by AWS Amplify</p>
+                          <p className="text-xs text-gray-500">Designed by PNG Gov Cloud Team</p>
                         </div>
                       );
                     },
@@ -121,7 +121,7 @@ function AuthContent() {
           </div>
 
           <div className="mt-8 text-center">
-            <p className="text-xs text-gray-500">© 2024 Digital Hub. All rights reserved.</p>
+            <p className="text-xs text-gray-500">© 2025 Digital Hub. All rights reserved.</p>
           </div>
         </div>
       </div>
