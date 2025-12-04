@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import Dashboard from './components/Dashboard';
+import { useUserRole, UserRole } from './contexts/UserRoleContext';
+import SuperAdminDashboard from './components/SuperAdminDashboard';
+import EngineerDashboard from './components/EngineerDashboard';
+import OfficerDashboard from './components/OfficerDashboard';
 import LearningHub from './components/LearningHub';
 import CertificateCompliance from './components/CertificateCompliance';
 import ServiceRequest from './components/ServiceRequest';
@@ -10,12 +13,48 @@ type PageType = 'dashboard' | 'learning' | 'certificates' | 'services' | 'analyt
 
 function App() {
   const { signOut, user } = useAuthenticator();
+  const { role, setRole } = useUserRole();
   const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
+
+  // Role-based page access control
+  const canAccessPage = (page: PageType): boolean => {
+    switch (role) {
+      case 'super-admin':
+        return true; // Super admin can access all pages
+      case 'engineer':
+        return ['dashboard', 'learning', 'services', 'projects', 'profile'].includes(page);
+      case 'officer':
+        return ['dashboard', 'learning', 'certificates', 'services', 'profile'].includes(page);
+      default:
+        return false;
+    }
+  };
+
+  // Handle page navigation with access control
+  const handlePageChange = (page: PageType) => {
+    if (canAccessPage(page)) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Render role-specific dashboard
+  const renderDashboard = () => {
+    switch (role) {
+      case 'super-admin':
+        return <SuperAdminDashboard />;
+      case 'engineer':
+        return <EngineerDashboard />;
+      case 'officer':
+        return <OfficerDashboard />;
+      default:
+        return <OfficerDashboard />;
+    }
+  };
 
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <Dashboard />;
+        return renderDashboard();
       case 'learning':
         return <LearningHub />;
       case 'certificates':
@@ -25,13 +64,39 @@ function App() {
       case 'profile':
         return <ProfileUpdate />;
       case 'analytics':
-        return <div className="p-6"><h1 className="text-3xl font-bold text-white">Analytics</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
+        return (
+          <div className="p-6">
+            <h1 className="text-3xl font-bold text-white">Analytics</h1>
+            <p className="text-gray-400 mt-2">Advanced analytics and reporting dashboard</p>
+          </div>
+        );
       case 'projects':
-        return <div className="p-6"><h1 className="text-3xl font-bold text-white">Projects</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
+        return (
+          <div className="p-6">
+            <h1 className="text-3xl font-bold text-white">Projects</h1>
+            <p className="text-gray-400 mt-2">Project management and tracking</p>
+          </div>
+        );
       default:
-        return <Dashboard />;
+        return renderDashboard();
     }
   };
+
+  // Get role display info
+  const getRoleInfo = () => {
+    switch (role) {
+      case 'super-admin':
+        return { label: 'Super Admin', color: 'text-red-500' };
+      case 'engineer':
+        return { label: 'Engineer', color: 'text-blue-500' };
+      case 'officer':
+        return { label: 'Officer', color: 'text-green-500' };
+      default:
+        return { label: 'Officer', color: 'text-green-500' };
+    }
+  };
+
+  const roleInfo = getRoleInfo();
 
   return (
     <div className="flex min-h-screen w-full bg-[#0b0c0e]">
@@ -46,9 +111,9 @@ function App() {
 
         {/* Navigation Icons */}
         <nav className="flex-1 flex flex-col space-y-4">
-          {/* Dashboard */}
+          {/* Dashboard - All roles */}
           <button
-            onClick={() => setCurrentPage('dashboard')}
+            onClick={() => handlePageChange('dashboard')}
             className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
               currentPage === 'dashboard'
                 ? 'bg-[#2d2d32] text-orange-500'
@@ -61,9 +126,9 @@ function App() {
             </svg>
           </button>
 
-          {/* Learning Hub */}
+          {/* Learning Hub - All roles */}
           <button
-            onClick={() => setCurrentPage('learning')}
+            onClick={() => handlePageChange('learning')}
             className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
               currentPage === 'learning'
                 ? 'bg-[#2d2d32] text-orange-500'
@@ -76,24 +141,26 @@ function App() {
             </svg>
           </button>
 
-          {/* Certificate of Compliance */}
-          <button
-            onClick={() => setCurrentPage('certificates')}
-            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-              currentPage === 'certificates'
-                ? 'bg-[#2d2d32] text-orange-500'
-                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
-            }`}
-            title="Certificate of Compliance"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-          </button>
+          {/* Certificate of Compliance - Super Admin & Officer */}
+          {canAccessPage('certificates') && (
+            <button
+              onClick={() => handlePageChange('certificates')}
+              className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+                currentPage === 'certificates'
+                  ? 'bg-[#2d2d32] text-orange-500'
+                  : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+              }`}
+              title="Certificate of Compliance"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+            </button>
+          )}
 
-          {/* Service Request */}
+          {/* Service Request - All roles */}
           <button
-            onClick={() => setCurrentPage('services')}
+            onClick={() => handlePageChange('services')}
             className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
               currentPage === 'services'
                 ? 'bg-[#2d2d32] text-orange-500'
@@ -106,39 +173,43 @@ function App() {
             </svg>
           </button>
 
-          {/* Analytics */}
-          <button
-            onClick={() => setCurrentPage('analytics')}
-            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-              currentPage === 'analytics'
-                ? 'bg-[#2d2d32] text-orange-500'
-                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
-            }`}
-            title="Analytics"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          </button>
+          {/* Analytics - Super Admin only */}
+          {canAccessPage('analytics') && (
+            <button
+              onClick={() => handlePageChange('analytics')}
+              className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+                currentPage === 'analytics'
+                  ? 'bg-[#2d2d32] text-orange-500'
+                  : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+              }`}
+              title="Analytics"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </button>
+          )}
 
-          {/* Projects */}
-          <button
-            onClick={() => setCurrentPage('projects')}
-            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-              currentPage === 'projects'
-                ? 'bg-[#2d2d32] text-orange-500'
-                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
-            }`}
-            title="Projects"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </button>
+          {/* Projects - Super Admin & Engineer */}
+          {canAccessPage('projects') && (
+            <button
+              onClick={() => handlePageChange('projects')}
+              className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+                currentPage === 'projects'
+                  ? 'bg-[#2d2d32] text-orange-500'
+                  : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+              }`}
+              title="Projects"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </button>
+          )}
 
-          {/* Profile Settings */}
+          {/* Profile Settings - All roles */}
           <button
-            onClick={() => setCurrentPage('profile')}
+            onClick={() => handlePageChange('profile')}
             className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
               currentPage === 'profile'
                 ? 'bg-[#2d2d32] text-orange-500'
@@ -169,6 +240,18 @@ function App() {
             </div>
             
             <div className="flex items-center space-x-2 sm:space-x-4">
+              {/* Role Selector (Demo Mode) */}
+              <select 
+                value={role} 
+                onChange={(e) => setRole(e.target.value as UserRole)}
+                className="px-3 py-1.5 bg-[#2d2d32] text-white text-xs sm:text-sm rounded border border-[#3a3a42] hover:bg-[#3a3a42] transition-colors"
+                title="Switch Role (Demo Mode)"
+              >
+                <option value="officer">Officer</option>
+                <option value="engineer">Engineer</option>
+                <option value="super-admin">Super Admin</option>
+              </select>
+              
               {/* Time Range Selector */}
               <button className="hidden md:block px-3 py-1.5 bg-[#2d2d32] text-gray-300 text-sm rounded hover:bg-[#3a3a42] border border-[#3a3a42] transition-colors">
                 Last 6 hours
@@ -185,7 +268,7 @@ function App() {
               <div className="flex items-center space-x-2 sm:space-x-3 pl-2 sm:pl-4 border-l border-[#2d2d32]">
                 <div className="hidden lg:flex flex-col items-end">
                   <span className="text-sm text-white truncate max-w-[150px]">{user?.signInDetails?.loginId || 'User'}</span>
-                  <span className="text-xs text-gray-500">Administrator</span>
+                  <span className={`text-xs ${roleInfo.color}`}>{roleInfo.label}</span>
                 </div>
                 <button
                   onClick={signOut}

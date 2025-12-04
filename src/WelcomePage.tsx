@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Authenticator, useAuthenticator, ThemeProvider } from '@aws-amplify/ui-react';
 import App from './App';
+import { UserRoleProvider } from './contexts/UserRoleContext';
 
 const authenticatorTheme = {
   name: 'grafana-theme',
@@ -264,9 +265,13 @@ function AuthContent() {
 function AuthWrapper() {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   
-  // If authenticated, render App directly
+  // If authenticated, render App with UserRoleProvider
   if (authStatus === 'authenticated') {
-    return <App />;
+    return (
+      <UserRoleProvider>
+        <App />
+      </UserRoleProvider>
+    );
   }
   
   // Otherwise show the welcome/auth pages
