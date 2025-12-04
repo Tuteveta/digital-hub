@@ -1,7 +1,30 @@
+import { useState } from 'react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import Dashboard from './components/Dashboard';
+import LearningHub from './components/LearningHub';
+
+type PageType = 'dashboard' | 'learning' | 'analytics' | 'projects' | 'settings';
 
 function App() {
   const { signOut, user } = useAuthenticator();
+  const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'learning':
+        return <LearningHub />;
+      case 'analytics':
+        return <div className="p-6"><h1 className="text-3xl font-bold text-white">Analytics</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
+      case 'projects':
+        return <div className="p-6"><h1 className="text-3xl font-bold text-white">Projects</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
+      case 'settings':
+        return <div className="p-6"><h1 className="text-3xl font-bold text-white">Settings</h1><p className="text-gray-400 mt-2">Coming soon...</p></div>;
+      default:
+        return <Dashboard />;
+    }
+  };
 
   return (
     <div className="flex min-h-screen w-full bg-[#0b0c0e]">
@@ -16,27 +39,71 @@ function App() {
 
         {/* Navigation Icons */}
         <nav className="flex-1 flex flex-col space-y-4">
-          <a href="#" className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#2d2d32] text-orange-500 hover:bg-[#3a3a42] transition-colors">
+          <button
+            onClick={() => setCurrentPage('dashboard')}
+            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              currentPage === 'dashboard'
+                ? 'bg-[#2d2d32] text-orange-500'
+                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+            }`}
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
-          </a>
-          <a href="#" className="w-10 h-10 flex items-center justify-center rounded-lg text-gray-400 hover:bg-[#2d2d32] hover:text-white transition-colors">
+          </button>
+
+          <button
+            onClick={() => setCurrentPage('learning')}
+            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              currentPage === 'learning'
+                ? 'bg-[#2d2d32] text-orange-500'
+                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+            }`}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </button>
+
+          <button
+            onClick={() => setCurrentPage('analytics')}
+            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              currentPage === 'analytics'
+                ? 'bg-[#2d2d32] text-orange-500'
+                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+            }`}
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
-          </a>
-          <a href="#" className="w-10 h-10 flex items-center justify-center rounded-lg text-gray-400 hover:bg-[#2d2d32] hover:text-white transition-colors">
+          </button>
+
+          <button
+            onClick={() => setCurrentPage('projects')}
+            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              currentPage === 'projects'
+                ? 'bg-[#2d2d32] text-orange-500'
+                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+            }`}
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-          </a>
-          <a href="#" className="w-10 h-10 flex items-center justify-center rounded-lg text-gray-400 hover:bg-[#2d2d32] hover:text-white transition-colors">
+          </button>
+
+          <button
+            onClick={() => setCurrentPage('settings')}
+            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              currentPage === 'settings'
+                ? 'bg-[#2d2d32] text-orange-500'
+                : 'text-gray-400 hover:bg-[#2d2d32] hover:text-white'
+            }`}
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-          </a>
+          </button>
         </nav>
       </aside>
 
@@ -46,7 +113,7 @@ function App() {
         <header className="bg-[#18181b] border-b border-[#2d2d32] flex-shrink-0">
           <div className="flex items-center justify-between px-4 sm:px-6 h-14">
             <div className="flex items-center space-x-2 sm:space-x-4 min-w-0">
-              <h1 className="text-base sm:text-lg font-medium text-white truncate">Dashboard</h1>
+              <h1 className="text-base sm:text-lg font-medium text-white truncate capitalize">{currentPage}</h1>
               <span className="text-gray-500 hidden sm:inline">/</span>
               <span className="text-gray-400 text-xs sm:text-sm hidden sm:inline">Home</span>
             </div>
@@ -83,195 +150,7 @@ function App() {
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
-          {/* Stats Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
-            {/* Stat Card 1 */}
-            <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg hover:border-[#3a3a42] transition-colors">
-              <div className="px-4 py-3 border-b border-[#2d2d32]">
-                <h3 className="text-sm font-medium text-gray-400">Total Users</h3>
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-2xl sm:text-3xl font-semibold text-white">1,234</div>
-                  <div className="text-green-500 text-sm font-medium">+12.5%</div>
-                </div>
-                <div className="mt-2 h-12">
-                  <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path d="M 0,30 L 20,25 L 40,28 L 60,20 L 80,15 L 100,10" fill="none" stroke="#10b981" strokeWidth="2" />
-                    <path d="M 0,30 L 20,25 L 40,28 L 60,20 L 80,15 L 100,10 L 100,40 L 0,40 Z" fill="url(#gradient1)" opacity="0.3" />
-                    <defs>
-                      <linearGradient id="gradient1" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#10b981" />
-                        <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            {/* Stat Card 2 */}
-            <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg hover:border-[#3a3a42] transition-colors">
-              <div className="px-4 py-3 border-b border-[#2d2d32]">
-                <h3 className="text-sm font-medium text-gray-400">Revenue</h3>
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-2xl sm:text-3xl font-semibold text-white">$45.6K</div>
-                  <div className="text-blue-500 text-sm font-medium">+8.2%</div>
-                </div>
-                <div className="mt-2 h-12">
-                  <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path d="M 0,35 L 20,32 L 40,35 L 60,28 L 80,22 L 100,18" fill="none" stroke="#3b82f6" strokeWidth="2" />
-                    <path d="M 0,35 L 20,32 L 40,35 L 60,28 L 80,22 L 100,18 L 100,40 L 0,40 Z" fill="url(#gradient2)" opacity="0.3" />
-                    <defs>
-                      <linearGradient id="gradient2" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#3b82f6" />
-                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            {/* Stat Card 3 */}
-            <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg hover:border-[#3a3a42] transition-colors">
-              <div className="px-4 py-3 border-b border-[#2d2d32]">
-                <h3 className="text-sm font-medium text-gray-400">Active Projects</h3>
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-2xl sm:text-3xl font-semibold text-white">24</div>
-                  <div className="text-purple-500 text-sm font-medium">+3</div>
-                </div>
-                <div className="mt-2 h-12">
-                  <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path d="M 0,25 L 20,28 L 40,22 L 60,25 L 80,20 L 100,15" fill="none" stroke="#a855f7" strokeWidth="2" />
-                    <path d="M 0,25 L 20,28 L 40,22 L 60,25 L 80,20 L 100,15 L 100,40 L 0,40 Z" fill="url(#gradient3)" opacity="0.3" />
-                    <defs>
-                      <linearGradient id="gradient3" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#a855f7" />
-                        <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            {/* Stat Card 4 */}
-            <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg hover:border-[#3a3a42] transition-colors">
-              <div className="px-4 py-3 border-b border-[#2d2d32]">
-                <h3 className="text-sm font-medium text-gray-400">Completion Rate</h3>
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-2xl sm:text-3xl font-semibold text-white">87%</div>
-                  <div className="text-orange-500 text-sm font-medium">+5.3%</div>
-                </div>
-                <div className="mt-2 h-12">
-                  <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path d="M 0,30 L 20,27 L 40,29 L 60,24 L 80,18 L 100,12" fill="none" stroke="#f97316" strokeWidth="2" />
-                    <path d="M 0,30 L 20,27 L 40,29 L 60,24 L 80,18 L 100,12 L 100,40 L 0,40 Z" fill="url(#gradient4)" opacity="0.3" />
-                    <defs>
-                      <linearGradient id="gradient4" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#f97316" />
-                        <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Content Panels Row */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
-            {/* Recent Activity Panel */}
-            <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg hover:border-[#3a3a42] transition-colors">
-              <div className="px-4 py-3 border-b border-[#2d2d32] flex items-center justify-between">
-                <h3 className="text-sm font-medium text-white">Recent Activity</h3>
-                <button className="text-gray-400 hover:text-white transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                  </svg>
-                </button>
-              </div>
-              <div className="p-4">
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-300 truncate">New user registered</p>
-                      <span className="text-xs text-gray-500">2 hours ago</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-300 truncate">Project completed successfully</p>
-                      <span className="text-xs text-gray-500">5 hours ago</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-300 truncate">Payment received</p>
-                      <span className="text-xs text-gray-500">1 day ago</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-300 truncate">New analytics report generated</p>
-                      <span className="text-xs text-gray-500">2 days ago</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* System Status Panel */}
-            <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg hover:border-[#3a3a42] transition-colors">
-              <div className="px-4 py-3 border-b border-[#2d2d32] flex items-center justify-between">
-                <h3 className="text-sm font-medium text-white">System Status</h3>
-                <span className="px-2 py-1 bg-green-500/10 text-green-500 text-xs rounded whitespace-nowrap">All Systems Operational</span>
-              </div>
-              <div className="p-4">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3 min-w-0">
-                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                      <span className="text-sm text-gray-300 truncate">API Server</span>
-                    </div>
-                    <span className="text-xs text-gray-500 whitespace-nowrap ml-2">99.9% uptime</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3 min-w-0">
-                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                      <span className="text-sm text-gray-300 truncate">Database</span>
-                    </div>
-                    <span className="text-xs text-gray-500 whitespace-nowrap ml-2">Healthy</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3 min-w-0">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full flex-shrink-0"></div>
-                      <span className="text-sm text-gray-300 truncate">Storage</span>
-                    </div>
-                    <span className="text-xs text-gray-500 whitespace-nowrap ml-2">75% used</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3 min-w-0">
-                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                      <span className="text-sm text-gray-300 truncate">CDN</span>
-                    </div>
-                    <span className="text-xs text-gray-500 whitespace-nowrap ml-2">Operational</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {renderPage()}
         </main>
       </div>
     </div>
