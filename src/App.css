@@ -1,42 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0b0c0e;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #d4d4d8;
+}
+
+/* Grafana-style Authenticator Overrides */
+[data-amplify-authenticator] {
+  --amplify-colors-background-primary: #18181b;
+  --amplify-colors-background-secondary: #0b0c0e;
+  --amplify-colors-font-primary: #d4d4d8;
+  --amplify-colors-font-secondary: #9ca3af;
+  --amplify-colors-font-interactive: #f97316;
+  --amplify-colors-brand-primary-10: #fff7ed;
+  --amplify-colors-brand-primary-80: #fb923c;
+  --amplify-colors-brand-primary-90: #f97316;
+  --amplify-colors-brand-primary-100: #ea580c;
+  --amplify-colors-border-primary: #3a3a42;
+  --amplify-colors-border-secondary: #2d2d32;
+  --amplify-components-button-primary-background-color: #f97316;
+  --amplify-components-button-primary-hover-background-color: #ea580c;
+  --amplify-components-tabs-item-active-color: #f97316;
+  --amplify-components-tabs-item-active-border-color: #f97316;
+  --amplify-components-tabs-item-border-color: transparent;
+  --amplify-components-fieldcontrol-focus-border-color: #f97316;
+  --amplify-components-fieldcontrol-border-color: #3a3a42;
+}
+
+[data-amplify-authenticator] [data-amplify-container] {
+  background-color: transparent;
+  box-shadow: none;
   padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+[data-amplify-authenticator] [data-amplify-router] {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Form Controls */
+[data-amplify-authenticator] input,
+[data-amplify-authenticator] select {
+  background-color: #0b0c0e !important;
+  border: 1px solid #3a3a42 !important;
+  color: #d4d4d8 !important;
+  padding: 0.625rem 0.875rem !important;
+  border-radius: 0.375rem !important;
+  transition: all 0.2s ease !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+[data-amplify-authenticator] input:focus,
+[data-amplify-authenticator] select:focus {
+  border-color: #f97316 !important;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1) !important;
+  outline: none !important;
 }
 
-.card {
-  padding: 2em;
+[data-amplify-authenticator] input::placeholder {
+  color: #6b7280 !important;
 }
 
-.read-the-docs {
-  color: #888;
+/* Labels */
+[data-amplify-authenticator] label {
+  color: #d4d4d8 !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Primary Button */
+[data-amplify-authenticator] button[type="submit"],
+[data-amplify-authenticator] button[data-variation="primary"] {
+  background-color: #f97316 !important;
+  border: none !important;
+  color: white !important;
+  padding: 0.625rem 1.25rem !important;
+  border-radius: 0.375rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-amplify-authenticator] button[type="submit"]:hover,
+[data-amplify-authenticator] button[data-variation="primary"]:hover {
+  background-color: #ea580c !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+[data-amplify-authenticator] button[type="submit"]:active,
+[data-amplify-authenticator] button[data-variation="primary"]:active {
+  background-color: #c2410c !important;
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+[data-amplify-authenticator] button[data-variation="link"] {
+  color: #f97316 !important;
+  background: transparent !important;
+  border: none !important;
+  text-decoration: none !important;
+  font-size: 0.875rem !important;
+  transition: color 0.2s ease !important;
+}
+
+[data-amplify-authenticator] button[data-variation="link"]:hover {
+  color: #ea580c !important;
+  text-decoration: underline !important;
+}
+
+/* Tabs */
+[data-amplify-authenticator] [data-amplify-tabs] {
+  border-bottom: 1px solid #2d2d32 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+[data-amplify-authenticator] [role="tab"] {
+  color: #9ca3af !important;
+  border-bottom: 2px solid transparent !important;
+  padding: 0.75rem 1rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-amplify-authenticator] [role="tab"]:hover {
+  color: #d4d4d8 !important;
+}
+
+[data-amplify-authenticator] [role="tab"][aria-selected="true"] {
+  color: #f97316 !important;
+  border-bottom-color: #f97316 !important;
+}
+
+/* Error Messages */
+[data-amplify-authenticator] [role="alert"] {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  color: #f87171 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.75rem !important;
+  font-size: 0.875rem !important;
+}
+
+/* Show Password Button */
+[data-amplify-authenticator] button[aria-label*="password"] {
+  background-color: transparent !important;
+  color: #9ca3af !important;
+  border: none !important;
+  transition: color 0.2s ease !important;
+}
+
+[data-amplify-authenticator] button[aria-label*="password"]:hover {
+  color: #d4d4d8 !important;
+}
+
+/* Loading Spinner */
+[data-amplify-authenticator] [data-amplify-loader] {
+  border-color: #3a3a42 !important;
+  border-top-color: #f97316 !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3a42;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a52;
 }
