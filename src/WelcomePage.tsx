@@ -113,19 +113,25 @@ const authenticatorStyles = `
 `;
 
 // Footer Component (reusable)
-function Footer() {
+function Footer({ onNavigate }: { onNavigate?: (page: string) => void }) {
   return (
     <div className="relative z-10 py-6 border-t border-[#2d2d32]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col items-center space-y-3">
           <div className="flex items-center space-x-6 text-sm">
-            <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
+            <button
+              onClick={() => onNavigate?.('privacy-policy')}
+              className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
+            >
               Privacy Policy
-            </a>
+            </button>
             <span className="text-gray-700">•</span>
-            <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
+            <button
+              onClick={() => onNavigate?.('terms-of-service')}
+              className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
+            >
               Terms of Service
-            </a>
+            </button>
           </div>
           <p className="text-xs text-gray-600">
             © 2025 Digital Hub. All rights reserved.
@@ -150,7 +156,7 @@ function AuthContent() {
         </div>
         
         {/* Footer */}
-        <Footer />
+        <Footer onNavigate={(page) => console.log('Navigate to:', page)} />
       </div>
     );
   }
@@ -241,7 +247,7 @@ function AuthContent() {
         </div>
 
         {/* Footer */}
-        <Footer />
+        <Footer onNavigate={(page) => console.log('Navigate to:', page)} />
       </div>
     );
   }
@@ -382,7 +388,7 @@ function AuthContent() {
       </div>
 
       {/* Footer - Bottom Center */}
-      <Footer />
+      <Footer onNavigate={(page) => console.log('Navigate to:', page)} />
     </div>
   );
 }

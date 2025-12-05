@@ -12,6 +12,8 @@ import ProfileUpdate from './components/ProfileUpdate';
 import UserManagement from './components/UserManagement';
 import ApplicationApproval from './components/ApplicationApproval';
 import ServiceRequestManagement from './components/ServiceRequestManagement';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsofService';
 
 type PageType = 
   | 'dashboard'
@@ -21,7 +23,9 @@ type PageType =
   | 'profile'
   | 'users'
   | 'applications'
-  | 'service-requests';
+  | 'service-requests'
+  | 'privacy-policy'
+  | 'terms-of-service';
 
 function App() {
   const { role, setRole, hasPermission } = useUserRole();
@@ -106,7 +110,11 @@ function App() {
       case 'applications':
         return <ApplicationApproval />;
       case 'service-requests':
-        return <ServiceRequestManagement />;
+        return <ServiceRequestManagement />;  
+      case 'privacy-policy':
+        return <PrivacyPolicy />;
+      case 'terms-of-service':
+        return <TermsOfService />;
       default:
         return renderDashboard();
     }
