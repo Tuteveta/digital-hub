@@ -128,7 +128,7 @@ function ActivityItem({ user, action, target, time, type }: ActivityItemProps) {
 }
 
 function SuperAdminDashboard() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'requests' | 'applications' | 'content' | 'certificates' | 'logs' | 'users' | 'settings'>('overview');
+  const [, setActiveTab] = useState<'overview' | 'requests' | 'applications' | 'content' | 'certificates' | 'logs' | 'users' | 'settings'>('overview');
 
   const stats = [
     {
