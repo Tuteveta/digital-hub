@@ -161,24 +161,31 @@ function AuthContent() {
       <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
         <style>{authenticatorStyles}</style>
         
+        {/* Header - Simple with Centered Back Button */}
+        <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
+          <div className="px-6 py-4">
+            <div className="flex items-center justify-center max-w-7xl mx-auto">
+              {/* Centered Back Button */}
+              <button
+                onClick={() => setShowAuth(false)}
+                className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                <span className="font-medium">Back to Welcome</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
         {/* Sign In Content */}
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="w-full max-w-md">
-            {/* Back Button */}
-            <button
-              onClick={() => setShowAuth(false)}
-              className="mb-6 text-gray-400 hover:text-white transition-colors flex items-center"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to Welcome
-            </button>
-
-            {/* Logo */}
+            {/* Logo - Above Sign In */}
             <div className="text-center mb-8">
-              {/* Replace this with your actual logo */}
               <div className="inline-flex items-center justify-center mb-6">
+                {/* Logo */}
                 <img 
                   src="/logo.png" 
                   alt="Digital Hub Logo" 
@@ -189,12 +196,15 @@ function AuthContent() {
                     e.currentTarget.nextElementSibling?.classList.remove('hidden');
                   }}
                 />
+                {/* Fallback D Icon */}
                 <div className="hidden items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-lg shadow-orange-500/20">
                   <span className="text-white font-bold text-4xl">D</span>
                 </div>
               </div>
-              <h1 className="text-3xl font-semibold text-white mb-2">Digital Hub</h1>
-              <p className="text-gray-400 text-sm">Sign in to continue to your dashboard</p>
+              
+              {/* Sign In Heading */}
+              <h2 className="text-3xl font-bold text-white mb-2">Sign In</h2>
+              <p className="text-gray-400 text-sm">Enter your credentials to continue</p>
             </div>
 
             {/* Sign In Card */}
@@ -262,7 +272,7 @@ function AuthContent() {
                   <img 
                     src="/logo.png" 
                     alt="Digital Hub Logo" 
-                    className="h-40 w-40 mb-6"
+                    className="h-24 w-auto mb-6"
                     onError={(e) => {
                       // Fallback to D icon if logo not found
                       e.currentTarget.style.display = 'none';
