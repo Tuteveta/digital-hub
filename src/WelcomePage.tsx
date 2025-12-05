@@ -4,6 +4,8 @@ import '@aws-amplify/ui-react/styles.css';
 import App from './App';
 import { UserRoleProvider } from './contexts/UserRoleContext';
 import OfficerApplicationForm from './components/OfficerApplicationForm';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsofService';
 
 // Custom CSS for authenticator
 const authenticatorStyles = `
@@ -113,21 +115,21 @@ const authenticatorStyles = `
 `;
 
 // Footer Component (reusable)
-function Footer({ onNavigate }: { onNavigate?: (page: string) => void }) {
+function Footer({ onNavigate }: { onNavigate?: (page: 'privacy' | 'terms') => void }) {
   return (
     <div className="relative z-10 py-6 border-t border-[#2d2d32]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col items-center space-y-3">
           <div className="flex items-center space-x-6 text-sm">
             <button
-              onClick={() => onNavigate?.('privacy-policy')}
+              onClick={() => onNavigate?.('privacy')}
               className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
             >
               Privacy Policy
             </button>
             <span className="text-gray-700">•</span>
             <button
-              onClick={() => onNavigate?.('terms-of-service')}
+              onClick={() => onNavigate?.('terms')}
               className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
             >
               Terms of Service
@@ -145,6 +147,73 @@ function Footer({ onNavigate }: { onNavigate?: (page: string) => void }) {
 function AuthContent() {
   const [showAuth, setShowAuth] = useState(false);
   const [showOfficerApplication, setShowOfficerApplication] = useState(false);
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const [showTermsOfService, setShowTermsOfService] = useState(false);
+
+  // Handle navigation from footer
+  const handleFooterNavigation = (page: 'privacy' | 'terms') => {
+    if (page === 'privacy') {
+      setShowPrivacyPolicy(true);
+      setShowTermsOfService(false);
+      setShowAuth(false);
+      setShowOfficerApplication(false);
+    } else if (page === 'terms') {
+      setShowTermsOfService(true);
+      setShowPrivacyPolicy(false);
+      setShowAuth(false);
+      setShowOfficerApplication(false);
+    }
+  };
+
+  // Reset all views
+  const resetViews = () => {
+    setShowAuth(false);
+    setShowOfficerApplication(false);
+    setShowPrivacyPolicy(false);
+    setShowTermsOfService(false);
+  };
+
+  // Show Privacy Policy
+  if (showPrivacyPolicy) {
+    return (
+      <div className="relative">
+        <PrivacyPolicy />
+        {/* Back to Welcome Button - Fixed at bottom */}
+        <div className="fixed bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-50 px-4 w-full max-w-xs sm:max-w-sm">
+          <button
+            onClick={resetViews}
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2"
+          >
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span className="text-sm sm:text-base">Back to Welcome</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Show Terms of Service
+  if (showTermsOfService) {
+    return (
+      <div className="relative">
+        <TermsOfService />
+        {/* Back to Welcome Button - Fixed at bottom */}
+        <div className="fixed bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-50 px-4 w-full max-w-xs sm:max-w-sm">
+          <button
+            onClick={resetViews}
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2"
+          >
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span className="text-sm sm:text-base">Back to Welcome</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // Show Officer Application Form
   if (showOfficerApplication) {
@@ -156,7 +225,7 @@ function AuthContent() {
         </div>
         
         {/* Footer */}
-        <Footer onNavigate={(page) => console.log('Navigate to:', page)} />
+        <Footer onNavigate={handleFooterNavigation} />
       </div>
     );
   }
@@ -247,7 +316,7 @@ function AuthContent() {
         </div>
 
         {/* Footer */}
-        <Footer onNavigate={(page) => console.log('Navigate to:', page)} />
+        <Footer onNavigate={handleFooterNavigation} />
       </div>
     );
   }
@@ -388,7 +457,7 @@ function AuthContent() {
       </div>
 
       {/* Footer - Bottom Center */}
-      <Footer onNavigate={(page) => console.log('Navigate to:', page)} />
+      <Footer onNavigate={handleFooterNavigation} />
     </div>
   );
 }
