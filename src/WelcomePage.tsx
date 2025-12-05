@@ -5,7 +5,7 @@ import App from './App';
 import { UserRoleProvider } from './contexts/UserRoleContext';
 import OfficerApplicationForm from './components/OfficerApplicationForm';
 
-// Custom CSS to hide sign-up and style authenticator
+// Custom CSS for authenticator
 const authenticatorStyles = `
   /* Hide the Sign Up tab */
   [data-amplify-authenticator] [role="tablist"] {
@@ -25,22 +25,10 @@ const authenticatorStyles = `
     display: none !important;
   }
   
-  /* HIDE THE EYE ICON COMPLETELY */
-  [data-amplify-authenticator] button[data-amplify-fieldgroup-icon-button],
-  [data-amplify-authenticator] .amplify-field__show-password,
-  [data-amplify-authenticator] [class*="show-password"],
-  [data-amplify-authenticator] button[aria-label*="Show password"],
-  [data-amplify-authenticator] button[aria-label*="Hide password"],
-  [data-amplify-authenticator] [data-amplify-field-group] button[type="button"] {
-    display: none !important;
-  }
-  
   /* Authenticator container styling */
   [data-amplify-authenticator] {
-    background: #18181b;
-    border: 1px solid #2d2d32;
-    border-radius: 12px;
-    padding: 2rem;
+    background: transparent;
+    border: none;
   }
   
   /* Left align all labels and inputs */
@@ -61,12 +49,6 @@ const authenticatorStyles = `
     border-radius: 6px;
     width: 100%;
     text-align: left !important;
-  }
-  
-  /* Password input - normal padding since no icon */
-  [data-amplify-authenticator] input[type="password"],
-  [data-amplify-authenticator] input[type="text"][name*="password"] {
-    padding: 0.75rem 1rem !important;
   }
   
   [data-amplify-authenticator] input::placeholder {
@@ -128,12 +110,6 @@ const authenticatorStyles = `
   [data-amplify-authenticator] [data-amplify-footer] button:hover {
     color: #ea580c;
   }
-  
-  /* Error messages - left aligned */
-  [data-amplify-authenticator] [role="alert"],
-  [data-amplify-authenticator] .amplify-alert {
-    text-align: left !important;
-  }
 `;
 
 function AuthContent() {
@@ -148,7 +124,7 @@ function AuthContent() {
   // Show Sign In Form
   if (showAuth) {
     return (
-      <div className="min-h-screen w-full bg-[#0b0c0e] flex items-center justify-center p-4">
+      <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col items-center justify-center p-4">
         <style>{authenticatorStyles}</style>
         
         <div className="w-full max-w-md">
@@ -165,15 +141,28 @@ function AuthContent() {
 
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl mb-4 shadow-lg shadow-orange-500/20">
-              <span className="text-white font-bold text-4xl">D</span>
+            {/* Replace this with your actual logo */}
+            <div className="inline-flex items-center justify-center mb-6">
+              <img 
+                src="/logo.png" 
+                alt="Digital Hub Logo" 
+                className="h-20 w-auto"
+                onError={(e) => {
+                  // Fallback to D icon if logo not found
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <div className="hidden items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-lg shadow-orange-500/20">
+                <span className="text-white font-bold text-4xl">D</span>
+              </div>
             </div>
             <h1 className="text-3xl font-semibold text-white mb-2">Digital Hub</h1>
             <p className="text-gray-400 text-sm">Sign in to continue to your dashboard</p>
           </div>
 
-          {/* Authenticator - Sign In Only, No Eye Icon */}
-          <div className="mb-6">
+          {/* Sign In Card */}
+          <div className="bg-[#18181b] border border-[#2d2d32] rounded-2xl shadow-2xl p-8">
             <Authenticator
               initialState="signIn"
               hideSignUp={true}
@@ -197,17 +186,14 @@ function AuthContent() {
                   return null;
                 },
                 Footer() {
-                  return (
-                    <div className="text-center mt-6 pt-6 border-t border-[#2d2d32]">
-                      <p className="text-xs text-gray-500">Powered by AWS Amplify</p>
-                    </div>
-                  );
+                  return null;
                 },
               }}
             />
           </div>
 
-          <div className="text-center">
+          {/* Footer */}
+          <div className="mt-8 text-center">
             <p className="text-xs text-gray-500">© 2025 Digital Hub. All rights reserved.</p>
           </div>
         </div>
@@ -217,7 +203,7 @@ function AuthContent() {
 
   // Welcome Page (Default View)
   return (
-    <div className="min-h-screen w-full bg-[#0b0c0e] relative overflow-auto">
+    <div className="min-h-screen w-full bg-[#0b0c0e] relative flex flex-col">
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full opacity-5">
@@ -227,55 +213,69 @@ function AuthContent() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-4 py-12">
-        <div className="max-w-6xl w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Hero Content */}
-            <div className="text-center lg:text-left">
-              <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl mb-8 shadow-2xl shadow-orange-500/30">
-                <span className="text-white font-bold text-5xl">D</span>
-              </div>
-              
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                Welcome to
-                <br />
-                <span className="bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">
-                  Digital Hub
-                </span>
-              </h1>
-              
-              <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Your centralized platform for monitoring, analytics, and digital transformation. 
-                Experience seamless integration with powerful insights.
-              </p>
+      {/* Main Content - Centered */}
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4 py-12">
+        <div className="w-full max-w-5xl">
+          {/* Main Card */}
+          <div className="bg-[#18181b] border border-[#2d2d32] rounded-3xl shadow-2xl overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-0">
+              {/* Left Side - Branding */}
+              <div className="p-12 lg:p-16 flex flex-col justify-center bg-gradient-to-br from-[#18181b] to-[#0b0c0e] border-r border-[#2d2d32]">
+                {/* Logo */}
+                <div className="mb-8">
+                  {/* Replace with your actual logo */}
+                  <img 
+                    src="/logo.png" 
+                    alt="Digital Hub Logo" 
+                    className="h-24 w-auto mb-6"
+                    onError={(e) => {
+                      // Fallback to D icon if logo not found
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <div className="hidden w-24 h-24 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl shadow-2xl shadow-orange-500/30 items-center justify-center mb-6">
+                    <span className="text-white font-bold text-5xl">D</span>
+                  </div>
+                </div>
+                
+                <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+                  Welcome to
+                  <br />
+                  <span className="bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">
+                    Digital Hub
+                  </span>
+                </h1>
+                
+                <p className="text-lg text-gray-400 mb-10 leading-relaxed">
+                  Your centralized platform for monitoring, analytics, and digital transformation.
+                </p>
 
-              {/* Features */}
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3 justify-center lg:justify-start">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-gray-300">Real-time Analytics & Monitoring</span>
-                </div>
-                <div className="flex items-center space-x-3 justify-center lg:justify-start">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-gray-300">Comprehensive Dashboard Views</span>
-                </div>
-                <div className="flex items-center space-x-3 justify-center lg:justify-start">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                  <span className="text-gray-300">Enterprise-Grade Security</span>
-                </div>
-                <div className="flex items-center space-x-3 justify-center lg:justify-start">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-                  <span className="text-gray-300">Scalable Cloud Infrastructure</span>
+                {/* Features */}
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-300 text-sm">Real-time Analytics & Monitoring</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="text-gray-300 text-sm">Comprehensive Dashboard Views</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                    <span className="text-gray-300 text-sm">Enterprise-Grade Security</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    <span className="text-gray-300 text-sm">Scalable Cloud Infrastructure</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Right Side - Auth Options */}
-            <div className="w-full max-w-md mx-auto">
-              <div className="bg-[#18181b] border border-[#2d2d32] rounded-2xl shadow-2xl p-8">
-                <h2 className="text-2xl font-semibold text-white mb-2 text-center">Get Started</h2>
-                <p className="text-gray-400 text-sm text-center mb-8">
+              {/* Right Side - Get Started */}
+              <div className="p-12 lg:p-16 flex flex-col justify-center">
+                <h2 className="text-3xl font-bold text-white mb-2">Get Started</h2>
+                <p className="text-gray-400 text-sm mb-8">
                   Choose an option to continue
                 </p>
 
@@ -305,7 +305,7 @@ function AuthContent() {
                 {/* Apply for Account Button */}
                 <button
                   onClick={() => setShowOfficerApplication(true)}
-                  className="w-full bg-[#2d2d32] hover:bg-[#3a3a42] text-white font-medium py-4 px-6 rounded-xl border border-[#3a3a42] transition-all duration-200 transform hover:scale-[1.02] mb-6"
+                  className="w-full bg-[#2d2d32] hover:bg-[#3a3a42] text-white font-medium py-4 px-6 rounded-xl border border-[#3a3a42] transition-all duration-200 transform hover:scale-[1.02] mb-8"
                 >
                   <div className="flex items-center justify-center space-x-3">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -324,24 +324,34 @@ function AuthContent() {
                     <div>
                       <p className="text-sm text-gray-300 font-semibold mb-1">New Officer?</p>
                       <p className="text-xs text-gray-500 leading-relaxed">
-                        Apply for an officer account with your Public Service Number, ID, and Endorsement Letter. 
-                        Your application will be reviewed and approved by our team.
+                        Apply with your Public Service Number, ID, and Endorsement Letter. 
+                        Your application will be reviewed by our team.
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Footer Links */}
-              <div className="mt-6 text-center space-y-2">
-                <div className="flex items-center justify-center space-x-4 text-sm">
-                  <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">Privacy Policy</a>
-                  <span className="text-gray-700">•</span>
-                  <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">Terms of Service</a>
-                </div>
-                <p className="text-xs text-gray-600">© 2025 Digital Hub. All rights reserved.</p>
-              </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer - Bottom Center */}
+      <div className="relative z-10 py-6 border-t border-[#2d2d32]">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col items-center space-y-3">
+            <div className="flex items-center space-x-6 text-sm">
+              <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
+                Privacy Policy
+              </a>
+              <span className="text-gray-700">•</span>
+              <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
+                Terms of Service
+              </a>
+            </div>
+            <p className="text-xs text-gray-600">
+              © 2025 Digital Hub. All rights reserved.
+            </p>
           </div>
         </div>
       </div>
