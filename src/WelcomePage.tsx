@@ -112,91 +112,126 @@ const authenticatorStyles = `
   }
 `;
 
+// Footer Component (reusable)
+function Footer() {
+  return (
+    <div className="relative z-10 py-6 border-t border-[#2d2d32]">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex flex-col items-center space-y-3">
+          <div className="flex items-center space-x-6 text-sm">
+            <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
+              Privacy Policy
+            </a>
+            <span className="text-gray-700">•</span>
+            <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
+              Terms of Service
+            </a>
+          </div>
+          <p className="text-xs text-gray-600">
+            © 2025 Digital Hub. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function AuthContent() {
   const [showAuth, setShowAuth] = useState(false);
   const [showOfficerApplication, setShowOfficerApplication] = useState(false);
 
   // Show Officer Application Form
   if (showOfficerApplication) {
-    return <OfficerApplicationForm onBack={() => setShowOfficerApplication(false)} />;
+    return (
+      <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
+        {/* Officer Application Content */}
+        <div className="flex-1">
+          <OfficerApplicationForm onBack={() => setShowOfficerApplication(false)} />
+        </div>
+        
+        {/* Footer */}
+        <Footer />
+      </div>
+    );
   }
 
   // Show Sign In Form
   if (showAuth) {
     return (
-      <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
         <style>{authenticatorStyles}</style>
         
-        <div className="w-full max-w-md">
-          {/* Back Button */}
-          <button
-            onClick={() => setShowAuth(false)}
-            className="mb-6 text-gray-400 hover:text-white transition-colors flex items-center"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Welcome
-          </button>
+        {/* Sign In Content */}
+        <div className="flex-1 flex items-center justify-center p-4">
+          <div className="w-full max-w-md">
+            {/* Back Button */}
+            <button
+              onClick={() => setShowAuth(false)}
+              className="mb-6 text-gray-400 hover:text-white transition-colors flex items-center"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back to Welcome
+            </button>
 
-          {/* Logo */}
-          <div className="text-center mb-8">
-            {/* Replace this with your actual logo */}
-            <div className="inline-flex items-center justify-center mb-6">
-              <img 
-                src="/logo.png" 
-                alt="Digital Hub Logo" 
-                className="h-20 w-auto"
-                onError={(e) => {
-                  // Fallback to D icon if logo not found
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+            {/* Logo */}
+            <div className="text-center mb-8">
+              {/* Replace this with your actual logo */}
+              <div className="inline-flex items-center justify-center mb-6">
+                <img 
+                  src="/logo.png" 
+                  alt="Digital Hub Logo" 
+                  className="h-20 w-auto"
+                  onError={(e) => {
+                    // Fallback to D icon if logo not found
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <div className="hidden items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-lg shadow-orange-500/20">
+                  <span className="text-white font-bold text-4xl">D</span>
+                </div>
+              </div>
+              <h1 className="text-3xl font-semibold text-white mb-2">Digital Hub</h1>
+              <p className="text-gray-400 text-sm">Sign in to continue to your dashboard</p>
+            </div>
+
+            {/* Sign In Card */}
+            <div className="bg-[#18181b] border border-[#2d2d32] rounded-2xl shadow-2xl p-8 mb-8">
+              <Authenticator
+                initialState="signIn"
+                hideSignUp={true}
+                signUpAttributes={[]}
+                formFields={{
+                  signIn: {
+                    username: {
+                      label: 'Email',
+                      placeholder: 'Enter your email',
+                      isRequired: true,
+                    },
+                    password: {
+                      label: 'Password',
+                      placeholder: 'Enter your password',
+                      isRequired: true,
+                    },
+                  },
+                }}
+                components={{
+                  Header() {
+                    return null;
+                  },
+                  Footer() {
+                    return null;
+                  },
                 }}
               />
-              <div className="hidden items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-lg shadow-orange-500/20">
-                <span className="text-white font-bold text-4xl">D</span>
-              </div>
             </div>
-            <h1 className="text-3xl font-semibold text-white mb-2">Digital Hub</h1>
-            <p className="text-gray-400 text-sm">Sign in to continue to your dashboard</p>
-          </div>
-
-          {/* Sign In Card */}
-          <div className="bg-[#18181b] border border-[#2d2d32] rounded-2xl shadow-2xl p-8">
-            <Authenticator
-              initialState="signIn"
-              hideSignUp={true}
-              signUpAttributes={[]}
-              formFields={{
-                signIn: {
-                  username: {
-                    label: 'Email',
-                    placeholder: 'Enter your email',
-                    isRequired: true,
-                  },
-                  password: {
-                    label: 'Password',
-                    placeholder: 'Enter your password',
-                    isRequired: true,
-                  },
-                },
-              }}
-              components={{
-                Header() {
-                  return null;
-                },
-                Footer() {
-                  return null;
-                },
-              }}
-            />
-          </div>
-
-          {/* Footer */}
-          <div className="mt-8 text-center">
-            <p className="text-xs text-gray-500">© 2025 Digital Hub. All rights reserved.</p>
           </div>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     );
   }
@@ -337,24 +372,7 @@ function AuthContent() {
       </div>
 
       {/* Footer - Bottom Center */}
-      <div className="relative z-10 py-6 border-t border-[#2d2d32]">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col items-center space-y-3">
-            <div className="flex items-center space-x-6 text-sm">
-              <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
-                Privacy Policy
-              </a>
-              <span className="text-gray-700">•</span>
-              <a href="#" className="text-gray-500 hover:text-orange-500 transition-colors">
-                Terms of Service
-              </a>
-            </div>
-            <p className="text-xs text-gray-600">
-              © 2025 Digital Hub. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }
