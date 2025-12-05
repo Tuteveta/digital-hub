@@ -262,7 +262,7 @@ function AuthContent() {
                   <img 
                     src="/logo.png" 
                     alt="Digital Hub Logo" 
-                    className="h-24 w-auto mb-6"
+                    className="h-40 w-40 mb-6"
                     onError={(e) => {
                       // Fallback to D icon if logo not found
                       e.currentTarget.style.display = 'none';
