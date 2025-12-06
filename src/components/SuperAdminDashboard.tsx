@@ -260,211 +260,212 @@ function SuperAdminDashboard() {
   ];
 
   return (
-    <div className="space-y-6 max-h-[calc(100vh-90px)] overflow-y-auto pr-2">
-      {/* Page Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Super Admin Dashboard</h1>
-          <p className="text-gray-400">Complete system overview and management</p>
+    <div className="min-h-screen w-full overflow-y-auto bg-[#0b0c0e]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20">
+        
+        {/* Page Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Super Admin Dashboard</h1>
+            <p className="text-sm sm:text-base text-gray-400">Complete system overview and management</p>
+          </div>
+          <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors flex items-center space-x-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span className="hidden sm:inline">Quick Action</span>
+          </button>
         </div>
-        <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center space-x-2">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-          <span>Quick Action</span>
-        </button>
-      </div>
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
-          <StatCard key={index} {...stat} />
-        ))}
-      </div>
-
-      {/* Quick Actions */}
-      <div>
-        <h2 className="text-xl font-semibold text-white mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {quickActions.map((action, index) => (
-            <QuickActionCard key={index} {...action} />
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+          {stats.map((stat, index) => (
+            <StatCard key={index} {...stat} />
           ))}
         </div>
-      </div>
 
-      {/* Main Content Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Activities / Logs */}
-        <div className="lg:col-span-2">
-          <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-white">Recent Activity</h2>
+        {/* Quick Actions */}
+        <div className="mb-6">
+          <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">Quick Actions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {quickActions.map((action, index) => (
+              <QuickActionCard key={index} {...action} />
+            ))}
+          </div>
+        </div>
+
+        {/* Main Content Sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
+          {/* Recent Activities / Logs */}
+          <div className="lg:col-span-2">
+            <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-white">Recent Activity</h2>
+                <button 
+                  onClick={() => setActiveTab('logs')}
+                  className="text-orange-500 hover:text-orange-400 text-sm font-medium flex items-center space-x-1"
+                >
+                  <span>View All</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-2">
+                {recentActivities.map((activity, index) => (
+                  <ActivityItem key={index} {...activity} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Pending Items */}
+          <div className="space-y-4 sm:space-y-6">
+            {/* Service Requests */}
+            <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base sm:text-lg font-semibold text-white">Service Requests</h3>
+                <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">12 New</span>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
+                  <div>
+                    <p className="text-white text-sm font-medium">SSL Certificate</p>
+                    <p className="text-gray-400 text-xs">John Doe • 2 hours ago</p>
+                  </div>
+                  <span className="text-orange-400 text-xs font-semibold">Pending</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
+                  <div>
+                    <p className="text-white text-sm font-medium">Database Access</p>
+                    <p className="text-gray-400 text-xs">Sarah Smith • 5 hours ago</p>
+                  </div>
+                  <span className="text-orange-400 text-xs font-semibold">Pending</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
+                  <div>
+                    <p className="text-white text-sm font-medium">Server Access</p>
+                    <p className="text-gray-400 text-xs">Mike Johnson • 1 day ago</p>
+                  </div>
+                  <span className="text-yellow-400 text-xs font-semibold">Review</span>
+                </div>
+              </div>
               <button 
-                onClick={() => setActiveTab('logs')}
-                className="text-orange-500 hover:text-orange-400 text-sm font-medium flex items-center space-x-1"
+                onClick={() => setActiveTab('requests')}
+                className="w-full mt-4 text-orange-500 hover:text-orange-400 text-sm font-medium py-2"
               >
-                <span>View All</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                View All Requests →
               </button>
             </div>
-            <div className="space-y-2 max-h-[400px] overflow-y-auto">
-              {recentActivities.map((activity, index) => (
-                <ActivityItem key={index} {...activity} />
-              ))}
+
+            {/* Officer Applications */}
+            <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base sm:text-lg font-semibold text-white">Applications</h3>
+                <span className="bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full">5 New</span>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
+                  <div>
+                    <p className="text-white text-sm font-medium">Officer Application</p>
+                    <p className="text-gray-400 text-xs">APP-2024-089</p>
+                  </div>
+                  <span className="text-purple-400 text-xs font-semibold">New</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
+                  <div>
+                    <p className="text-white text-sm font-medium">Officer Application</p>
+                    <p className="text-gray-400 text-xs">APP-2024-088</p>
+                  </div>
+                  <span className="text-purple-400 text-xs font-semibold">New</span>
+                </div>
+              </div>
+              <button 
+                onClick={() => setActiveTab('applications')}
+                className="w-full mt-4 text-orange-500 hover:text-orange-400 text-sm font-medium py-2"
+              >
+                Review Applications →
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Pending Items */}
-        <div className="space-y-6">
-          {/* Service Requests */}
-          <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-6">
+        {/* System Health & Monitoring */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">Service Requests</h3>
-              <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">12 New</span>
+              <h3 className="text-white font-semibold">System Health</h3>
+              <span className="text-green-400 text-xs font-semibold">Operational</span>
             </div>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
-                <div>
-                  <p className="text-white text-sm font-medium">SSL Certificate</p>
-                  <p className="text-gray-400 text-xs">John Doe • 2 hours ago</p>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-gray-400">CPU Usage</span>
+                  <span className="text-white">32%</span>
                 </div>
-                <span className="text-orange-400 text-xs font-semibold">Pending</span>
+                <div className="w-full bg-[#2d2d32] rounded-full h-2">
+                  <div className="bg-green-500 h-2 rounded-full" style={{ width: '32%' }}></div>
+                </div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
-                <div>
-                  <p className="text-white text-sm font-medium">Database Access</p>
-                  <p className="text-gray-400 text-xs">Sarah Smith • 5 hours ago</p>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-gray-400">Memory</span>
+                  <span className="text-white">58%</span>
                 </div>
-                <span className="text-orange-400 text-xs font-semibold">Pending</span>
+                <div className="w-full bg-[#2d2d32] rounded-full h-2">
+                  <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '58%' }}></div>
+                </div>
               </div>
-              <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
-                <div>
-                  <p className="text-white text-sm font-medium">Server Access</p>
-                  <p className="text-gray-400 text-xs">Mike Johnson • 1 day ago</p>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-gray-400">Storage</span>
+                  <span className="text-white">45%</span>
                 </div>
-                <span className="text-yellow-400 text-xs font-semibold">Review</span>
+                <div className="w-full bg-[#2d2d32] rounded-full h-2">
+                  <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                </div>
               </div>
             </div>
-            <button 
-              onClick={() => setActiveTab('requests')}
-              className="w-full mt-4 text-orange-500 hover:text-orange-400 text-sm font-medium py-2"
-            >
-              View All Requests →
-            </button>
           </div>
 
-          {/* Officer Applications */}
-          <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">Applications</h3>
-              <span className="bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full">5 New</span>
+          <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6">
+            <h3 className="text-white font-semibold mb-4">Certificates Pending</h3>
+            <div className="text-center">
+              <p className="text-4xl font-bold text-orange-400 mb-2">8</p>
+              <p className="text-gray-400 text-sm mb-4">Awaiting approval</p>
+              <button 
+                onClick={() => setActiveTab('certificates')}
+                className="text-orange-500 hover:text-orange-400 text-sm font-medium"
+              >
+                Review Now →
+              </button>
             </div>
+          </div>
+
+          <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6">
+            <h3 className="text-white font-semibold mb-4">Quick Stats</h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
-                <div>
-                  <p className="text-white text-sm font-medium">Officer Application</p>
-                  <p className="text-gray-400 text-xs">APP-2024-089</p>
-                </div>
-                <span className="text-purple-400 text-xs font-semibold">New</span>
+              <div className="flex justify-between">
+                <span className="text-gray-400 text-sm">Active Officers</span>
+                <span className="text-white font-semibold">1,234</span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-[#2d2d32] rounded-lg hover:bg-[#3a3a42] transition-colors cursor-pointer">
-                <div>
-                  <p className="text-white text-sm font-medium">Officer Application</p>
-                  <p className="text-gray-400 text-xs">APP-2024-088</p>
-                </div>
-                <span className="text-purple-400 text-xs font-semibold">New</span>
+              <div className="flex justify-between">
+                <span className="text-gray-400 text-sm">Active Engineers</span>
+                <span className="text-white font-semibold">89</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400 text-sm">Learning Materials</span>
+                <span className="text-white font-semibold">456</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400 text-sm">Forum Topics</span>
+                <span className="text-white font-semibold">234</span>
               </div>
             </div>
-            <button 
-              onClick={() => setActiveTab('applications')}
-              className="w-full mt-4 text-orange-500 hover:text-orange-400 text-sm font-medium py-2"
-            >
-              Review Applications →
-            </button>
           </div>
         </div>
+
       </div>
-
-      {/* System Health & Monitoring */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-white font-semibold">System Health</h3>
-            <span className="text-green-400 text-xs font-semibold">Operational</span>
-          </div>
-          <div className="space-y-3">
-            <div>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-400">CPU Usage</span>
-                <span className="text-white">32%</span>
-              </div>
-              <div className="w-full bg-[#2d2d32] rounded-full h-2">
-                <div className="bg-green-500 h-2 rounded-full" style={{ width: '32%' }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-400">Memory</span>
-                <span className="text-white">58%</span>
-              </div>
-              <div className="w-full bg-[#2d2d32] rounded-full h-2">
-                <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '58%' }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-400">Storage</span>
-                <span className="text-white">45%</span>
-              </div>
-              <div className="w-full bg-[#2d2d32] rounded-full h-2">
-                <div className="bg-blue-500 h-2 rounded-full" style={{ width: '45%' }}></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-6">
-          <h3 className="text-white font-semibold mb-4">Certificates Pending</h3>
-          <div className="text-center">
-            <p className="text-4xl font-bold text-orange-400 mb-2">8</p>
-            <p className="text-gray-400 text-sm mb-4">Awaiting approval</p>
-            <button 
-              onClick={() => setActiveTab('certificates')}
-              className="text-orange-500 hover:text-orange-400 text-sm font-medium"
-            >
-              Review Now →
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-6">
-          <h3 className="text-white font-semibold mb-4">Quick Stats</h3>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-gray-400 text-sm">Active Officers</span>
-              <span className="text-white font-semibold">1,234</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400 text-sm">Active Engineers</span>
-              <span className="text-white font-semibold">89</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400 text-sm">Learning Materials</span>
-              <span className="text-white font-semibold">456</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400 text-sm">Forum Topics</span>
-              <span className="text-white font-semibold">234</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Spacing for Scroll */}
-      <div className="h-4"></div>
     </div>
   );
 }

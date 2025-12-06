@@ -87,37 +87,39 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
 
   if (submissionStatus === 'success') {
     return (
-      <div className="min-h-screen bg-[#0b0c0e] flex items-center justify-center p-4">
-        <div className="max-w-2xl w-full bg-[#18181b] border border-[#2d2d32] rounded-lg p-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/10 rounded-full mb-4">
-            <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Application Submitted!</h2>
-          <p className="text-gray-400 mb-6">
-            Your officer application has been submitted successfully. You will receive an email notification once your application has been reviewed and approved by an administrator or engineer.
-          </p>
-          <div className="bg-[#0b0c0e] border border-[#2d2d32] rounded-lg p-4 mb-6">
-            <div className="text-sm text-gray-400 mb-2">Application Reference</div>
-            <div className="text-lg font-mono text-orange-500">APP-{Date.now().toString().slice(-8)}</div>
-          </div>
-          <p className="text-sm text-gray-500 mb-6">
-            Please check your email ({formData.email}) for updates on your application status.
-          </p>
-          <div className="flex gap-3 justify-center">
-            <button
-              onClick={handleBackToWelcome}
-              className="px-6 py-2 bg-[#2d2d32] hover:bg-[#3a3a42] text-white rounded-lg transition-colors"
-            >
-              Back to Home
-            </button>
-            <button
-              onClick={() => setSubmissionStatus('idle')}
-              className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
-            >
-              Submit Another Application
-            </button>
+      <div className="min-h-screen w-full bg-[#0b0c0e] overflow-y-auto">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg p-6 sm:p-8 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/10 rounded-full mb-4">
+              <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Application Submitted!</h2>
+            <p className="text-sm sm:text-base text-gray-400 mb-6">
+              Your officer application has been submitted successfully. You will receive an email notification once your application has been reviewed and approved by an administrator or engineer.
+            </p>
+            <div className="bg-[#0b0c0e] border border-[#2d2d32] rounded-lg p-4 mb-6">
+              <div className="text-sm text-gray-400 mb-2">Application Reference</div>
+              <div className="text-lg font-mono text-orange-500">APP-{Date.now().toString().slice(-8)}</div>
+            </div>
+            <p className="text-sm text-gray-500 mb-6">
+              Please check your email ({formData.email}) for updates on your application status.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                onClick={handleBackToWelcome}
+                className="px-6 py-2 bg-[#2d2d32] hover:bg-[#3a3a42] text-white rounded-lg transition-colors"
+              >
+                Back to Home
+              </button>
+              <button
+                onClick={() => setSubmissionStatus('idle')}
+                className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
+              >
+                Submit Another Application
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -125,8 +127,9 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0c0e] p-4 overflow-auto">
-      <div className="max-w-3xl mx-auto py-8">
+    <div className="min-h-screen w-full bg-[#0b0c0e] overflow-y-auto">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pb-24">
+        
         {/* Back Button */}
         <button
           onClick={handleBackToWelcome}
@@ -135,23 +138,24 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Back to Welcome
+          <span className="text-sm sm:text-base">Back to Welcome</span>
         </button>
 
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl mb-4">
-            <span className="text-white font-bold text-2xl">D</span>
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl mb-4">
+            <span className="text-white font-bold text-xl sm:text-2xl">D</span>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Officer Application</h1>
-          <p className="text-gray-400">Complete the form below to apply for officer access</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Officer Application</h1>
+          <p className="text-sm sm:text-base text-gray-400">Complete the form below to apply for officer access</p>
         </div>
 
         {/* Application Form */}
-        <form onSubmit={handleSubmit} className="bg-[#18181b] border border-[#2d2d32] rounded-lg p-6 md:p-8">
+        <form onSubmit={handleSubmit} className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6 md:p-8">
+          
           {/* Personal Information */}
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+            <h2 className="text-base sm:text-lg font-semibold text-white mb-4 flex items-center">
               <svg className="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
@@ -167,7 +171,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-2 bg-[#0b0c0e] border ${errors.fullName ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-white focus:border-orange-500 focus:outline-none`}
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#0b0c0e] border ${errors.fullName ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-sm sm:text-base text-white focus:border-orange-500 focus:outline-none`}
                   placeholder="John Smith"
                 />
                 {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
@@ -182,7 +186,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-2 bg-[#0b0c0e] border ${errors.email ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-white focus:border-orange-500 focus:outline-none`}
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#0b0c0e] border ${errors.email ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-sm sm:text-base text-white focus:border-orange-500 focus:outline-none`}
                   placeholder="john.smith@example.com"
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
@@ -197,7 +201,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-2 bg-[#0b0c0e] border ${errors.phone ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-white focus:border-orange-500 focus:outline-none`}
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#0b0c0e] border ${errors.phone ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-sm sm:text-base text-white focus:border-orange-500 focus:outline-none`}
                   placeholder="+675 7234 5678"
                 />
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
@@ -212,7 +216,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   name="publicServiceNumber"
                   value={formData.publicServiceNumber}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-2 bg-[#0b0c0e] border ${errors.publicServiceNumber ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-white focus:border-orange-500 focus:outline-none`}
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#0b0c0e] border ${errors.publicServiceNumber ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-sm sm:text-base text-white focus:border-orange-500 focus:outline-none`}
                   placeholder="PS-12345"
                 />
                 {errors.publicServiceNumber && <p className="text-red-500 text-xs mt-1">{errors.publicServiceNumber}</p>}
@@ -222,7 +226,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
 
           {/* Employment Information */}
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+            <h2 className="text-base sm:text-lg font-semibold text-white mb-4 flex items-center">
               <svg className="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
@@ -237,7 +241,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   name="department"
                   value={formData.department}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-2 bg-[#0b0c0e] border ${errors.department ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-white focus:border-orange-500 focus:outline-none`}
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#0b0c0e] border ${errors.department ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-sm sm:text-base text-white focus:border-orange-500 focus:outline-none`}
                 >
                   <option value="">Select Department</option>
                   <option value="IT">Information Technology</option>
@@ -260,7 +264,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   name="position"
                   value={formData.position}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-2 bg-[#0b0c0e] border ${errors.position ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-white focus:border-orange-500 focus:outline-none`}
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 bg-[#0b0c0e] border ${errors.position ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg text-sm sm:text-base text-white focus:border-orange-500 focus:outline-none`}
                   placeholder="Senior Officer"
                 />
                 {errors.position && <p className="text-red-500 text-xs mt-1">{errors.position}</p>}
@@ -270,7 +274,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
 
           {/* Document Uploads */}
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+            <h2 className="text-base sm:text-lg font-semibold text-white mb-4 flex items-center">
               <svg className="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -283,7 +287,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                 <label className="block text-sm font-medium text-gray-400 mb-2">
                   ID Document (National ID or Passport) <span className="text-red-500">*</span>
                 </label>
-                <div className={`border-2 border-dashed ${errors.idDocument ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg p-6 text-center hover:border-orange-500 transition-colors`}>
+                <div className={`border-2 border-dashed ${errors.idDocument ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg p-4 sm:p-6 text-center hover:border-orange-500 transition-colors`}>
                   <input
                     type="file"
                     accept=".pdf,.jpg,.jpeg,.png"
@@ -294,18 +298,18 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   <label htmlFor="idDocument" className="cursor-pointer">
                     {formData.idDocument ? (
                       <div className="flex items-center justify-center space-x-2">
-                        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span className="text-white">{formData.idDocument.name}</span>
+                        <span className="text-sm sm:text-base text-white">{formData.idDocument.name}</span>
                       </div>
                     ) : (
                       <>
-                        <svg className="w-12 h-12 text-gray-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-10 h-10 sm:w-12 sm:h-12 text-gray-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                         </svg>
-                        <p className="text-gray-400 text-sm">Click to upload ID document</p>
-                        <p className="text-gray-600 text-xs mt-1">PDF, JPG, JPEG, or PNG (Max 5MB)</p>
+                        <p className="text-sm text-gray-400">Click to upload ID document</p>
+                        <p className="text-xs text-gray-600 mt-1">PDF, JPG, JPEG, or PNG (Max 5MB)</p>
                       </>
                     )}
                   </label>
@@ -318,7 +322,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                 <label className="block text-sm font-medium text-gray-400 mb-2">
                   Endorsement Letter from Department Head <span className="text-red-500">*</span>
                 </label>
-                <div className={`border-2 border-dashed ${errors.endorsementLetter ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg p-6 text-center hover:border-orange-500 transition-colors`}>
+                <div className={`border-2 border-dashed ${errors.endorsementLetter ? 'border-red-500' : 'border-[#3a3a42]'} rounded-lg p-4 sm:p-6 text-center hover:border-orange-500 transition-colors`}>
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx"
@@ -329,18 +333,18 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
                   <label htmlFor="endorsementLetter" className="cursor-pointer">
                     {formData.endorsementLetter ? (
                       <div className="flex items-center justify-center space-x-2">
-                        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span className="text-white">{formData.endorsementLetter.name}</span>
+                        <span className="text-sm sm:text-base text-white">{formData.endorsementLetter.name}</span>
                       </div>
                     ) : (
                       <>
-                        <svg className="w-12 h-12 text-gray-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-10 h-10 sm:w-12 sm:h-12 text-gray-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                         </svg>
-                        <p className="text-gray-400 text-sm">Click to upload endorsement letter</p>
-                        <p className="text-gray-600 text-xs mt-1">PDF, DOC, or DOCX (Max 5MB)</p>
+                        <p className="text-sm text-gray-400">Click to upload endorsement letter</p>
+                        <p className="text-xs text-gray-600 mt-1">PDF, DOC, or DOCX (Max 5MB)</p>
                       </>
                     )}
                   </label>
@@ -351,7 +355,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
           </div>
 
           {/* Terms and Conditions */}
-          <div className="bg-[#0b0c0e] border border-[#2d2d32] rounded-lg p-4 mb-6">
+          <div className="bg-[#0b0c0e] border border-[#2d2d32] rounded-lg p-3 sm:p-4 mb-6">
             <div className="flex items-start space-x-3">
               <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -366,18 +370,18 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
           </div>
 
           {/* Submit Button */}
-          <div className="flex justify-end space-x-3">
+          <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3">
             <button
               type="button"
               onClick={handleBackToWelcome}
-              className="px-6 py-3 bg-[#2d2d32] hover:bg-[#3a3a42] text-white rounded-lg transition-colors"
+              className="px-6 py-3 bg-[#2d2d32] hover:bg-[#3a3a42] text-white rounded-lg transition-colors text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submissionStatus === 'submitting'}
-              className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+              className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 text-sm sm:text-base"
             >
               {submissionStatus === 'submitting' ? (
                 <>
@@ -393,6 +397,7 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
             </button>
           </div>
         </form>
+
       </div>
     </div>
   );
