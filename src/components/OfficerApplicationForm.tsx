@@ -88,10 +88,30 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
   if (submissionStatus === 'success') {
     return (
       <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
+        {/* Scrollbar Styles */}
+        <style>{`
+          .overflow-y-auto::-webkit-scrollbar {
+            width: 16px;
+          }
+          .overflow-y-auto::-webkit-scrollbar-track {
+            background: #0b0c0e;
+            border-radius: 8px;
+          }
+          .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #4a4a52;
+            border-radius: 8px;
+            border: 3px solid #0b0c0e;
+          }
+          .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #5a5a62;
+          }
+        `}</style>
+        
         {/* Header - Sticky */}
         <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
           <div className="px-6 py-4">
-            <div className="flex items-center justify-between max-w-7xl mx-auto">
+            <div className="flex items-center justify-center max-w-7xl mx-auto">
+              {/* Centered Back Button */}
               <button
                 onClick={handleBackToWelcome}
                 className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
@@ -176,10 +196,30 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
 
   return (
     <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
+      {/* Scrollbar Styles */}
+      <style>{`
+        .overflow-y-auto::-webkit-scrollbar {
+          width: 16px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+          background: #0b0c0e;
+          border-radius: 8px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+          background: #4a4a52;
+          border-radius: 8px;
+          border: 3px solid #0b0c0e;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+          background: #5a5a62;
+        }
+      `}</style>
+      
       {/* Header - Sticky */}
       <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
         <div className="px-6 py-4">
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <div className="flex items-center justify-center max-w-7xl mx-auto">
+            {/* Centered Back Button */}
             <button
               onClick={handleBackToWelcome}
               className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
@@ -197,52 +237,11 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         
-          {/* Header with Enhanced Logo */}
+          {/* Page Title */}
           <div className="text-center mb-6 sm:mb-8">
-          {/* Enhanced Logo - Same as Welcome Page */}
-          <div className="inline-flex items-center justify-center mb-4 group">
-            {/* Animated glow background */}
-            <div className="absolute w-32 h-32 bg-gradient-to-r from-orange-500/30 to-red-600/30 rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 animate-pulse"></div>
-            
-            {/* Logo container with enhanced styling */}
-            <div className="relative bg-gradient-to-br from-[#18181b] to-[#0b0c0e] p-4 sm:p-5 rounded-2xl border-2 border-[#2d2d32] group-hover:border-orange-500/40 transition-all duration-300 shadow-xl">
-              {/* Inner glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-600/5 rounded-2xl"></div>
-              
-              <img 
-                src="/logo.png" 
-                alt="Digital Hub Logo" 
-                className="relative h-12 w-auto sm:h-16 drop-shadow-2xl transition-all duration-300 group-hover:scale-105 filter brightness-110"
-                style={{ imageRendering: 'crisp-edges' }}
-                onError={(e) => {
-                  // Fallback to D icon if logo not found
-                  e.currentTarget.style.display = 'none';
-                  const parent = e.currentTarget.parentElement?.parentElement;
-                  if (parent) {
-                    const fallback = parent.nextElementSibling;
-                    if (fallback) {
-                      fallback.classList.remove('hidden');
-                      fallback.classList.add('flex');
-                    }
-                  }
-                }}
-              />
-            </div>
-            
-            {/* Fallback D Icon - Enhanced with modern styling */}
-            <div className="hidden relative bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 p-4 sm:p-5 rounded-2xl border-2 border-orange-400/30 shadow-2xl shadow-orange-500/40">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center">
-                <span className="text-white font-bold text-xl sm:text-2xl tracking-tight drop-shadow-lg">D</span>
-              </div>
-              {/* Corner accents */}
-              <div className="absolute top-2 right-2 w-2 h-2 bg-white/30 rounded-full"></div>
-              <div className="absolute bottom-2 left-2 w-2 h-2 bg-white/30 rounded-full"></div>
-            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Officer Application</h1>
+            <p className="text-sm sm:text-base text-gray-400">Complete the form below to apply for officer access</p>
           </div>
-          
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Officer Application</h1>
-          <p className="text-sm sm:text-base text-gray-400">Complete the form below to apply for officer access</p>
-        </div>
 
         {/* Application Form */}
         <form onSubmit={handleSubmit} className="bg-[#18181b] border border-[#2d2d32] rounded-xl p-4 sm:p-6 md:p-8">

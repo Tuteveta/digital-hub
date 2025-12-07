@@ -236,7 +236,7 @@ function AuthContent() {
       <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
         <style>{authenticatorStyles}</style>
         
-        {/* Header - Simple with Centered Back Button */}
+        {/* Header - Centered Back Button */}
         <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
           <div className="px-6 py-4">
             <div className="flex items-center justify-center max-w-7xl mx-auto">
@@ -257,39 +257,8 @@ function AuthContent() {
         {/* Sign In Content */}
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="w-full max-w-md">
-            {/* Logo - Above Sign In - ENHANCED */}
+            {/* Sign In Heading */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center mb-6 group">
-                {/* Animated glow background */}
-                <div className="absolute w-32 h-32 bg-gradient-to-r from-orange-500/30 to-red-600/30 rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 animate-pulse"></div>
-                
-                {/* Logo container with enhanced styling */}
-                <div className="relative bg-gradient-to-br from-[#18181b] to-[#0b0c0e] p-5 rounded-2xl border border-[#2d2d32] group-hover:border-orange-500/40 transition-all duration-300 shadow-xl">
-                  <img 
-                    src="/logo.png" 
-                    alt="Digital Hub Logo" 
-                    className="h-16 w-auto drop-shadow-2xl transition-transform duration-300 group-hover:scale-110"
-                    onError={(e) => {
-                      // Fallback to D icon if logo not found
-                      e.currentTarget.style.display = 'none';
-                      const parent = e.currentTarget.parentElement;
-                      if (parent) {
-                        const fallback = parent.nextElementSibling;
-                        if (fallback) {
-                          fallback.classList.remove('hidden');
-                          fallback.classList.add('flex');
-                        }
-                      }
-                    }}
-                  />
-                  {/* Fallback D Icon - Enhanced */}
-                  <div className="hidden w-16 h-16 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 rounded-xl shadow-lg items-center justify-center">
-                    <span className="text-white font-bold text-3xl tracking-tight">D</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Sign In Heading */}
               <h2 className="text-3xl font-bold text-white mb-2">Sign In</h2>
               <p className="text-gray-400 text-sm">Enter your credentials to continue</p>
             </div>
