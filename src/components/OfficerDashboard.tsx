@@ -35,7 +35,7 @@ function OfficerDashboard() {
   // Show loading state
   if (loadingRequests || loadingCerts || loadingStats) {
     return (
-      <div className="h-full w-full overflow-y-auto bg-[#0b0c0e] flex items-center justify-center">
+      <div className="p-6 bg-[#0b0c0e] flex items-center justify-center min-h-[500px]">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mb-4"></div>
           <p className="text-white text-lg">Loading your dashboard...</p>
@@ -48,7 +48,7 @@ function OfficerDashboard() {
   // Show error state
   if (requestsError || certsError) {
     return (
-      <div className="h-full w-full overflow-y-auto bg-[#0b0c0e] flex items-center justify-center">
+      <div className="p-6 bg-[#0b0c0e] flex items-center justify-center min-h-[500px]">
         <div className="text-center max-w-md">
           <svg className="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -67,17 +67,17 @@ function OfficerDashboard() {
   }
 
   return (
-    <div className="h-full w-full overflow-y-auto bg-[#0b0c0e]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 pb-24 sm:pb-20">
+    <div className="p-6 bg-[#0b0c0e]">
+      <div className="max-w-7xl mx-auto">
         
         {/* Page Header */}
         <div className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Officer Dashboard</h1>
-          <p className="text-sm sm:text-base text-gray-400">Manage your requests and learning progress</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Officer Dashboard</h1>
+          <p className="text-gray-400">Manage your requests and learning progress</p>
         </div>
 
         {/* Stats Row - Real Data */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
           {/* My Requests */}
           <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg hover:border-[#3a3a42] transition-colors">
             <div className="px-4 py-3 border-b border-[#2d2d32]">
@@ -318,7 +318,7 @@ function OfficerDashboard() {
         </div>
 
         {/* Bottom Panels */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
           {/* Department Announcements - Read Only */}
           <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg">
             <div className="px-4 py-3 border-b border-[#2d2d32] flex items-center justify-between">
