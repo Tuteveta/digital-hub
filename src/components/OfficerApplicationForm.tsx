@@ -141,11 +141,49 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
           <span className="text-sm sm:text-base">Back to Welcome</span>
         </button>
 
-        {/* Header */}
+        {/* Header with Enhanced Logo */}
         <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl mb-4">
-            <span className="text-white font-bold text-xl sm:text-2xl">D</span>
+          {/* Enhanced Logo - Same as Welcome Page */}
+          <div className="inline-flex items-center justify-center mb-4 group">
+            {/* Animated glow background */}
+            <div className="absolute w-32 h-32 bg-gradient-to-r from-orange-500/30 to-red-600/30 rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 animate-pulse"></div>
+            
+            {/* Logo container with enhanced styling */}
+            <div className="relative bg-gradient-to-br from-[#18181b] to-[#0b0c0e] p-4 sm:p-5 rounded-2xl border-2 border-[#2d2d32] group-hover:border-orange-500/40 transition-all duration-300 shadow-xl">
+              {/* Inner glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-600/5 rounded-2xl"></div>
+              
+              <img 
+                src="/logo.png" 
+                alt="Digital Hub Logo" 
+                className="relative h-12 w-auto sm:h-16 drop-shadow-2xl transition-all duration-300 group-hover:scale-105 filter brightness-110"
+                style={{ imageRendering: 'crisp-edges' }}
+                onError={(e) => {
+                  // Fallback to D icon if logo not found
+                  e.currentTarget.style.display = 'none';
+                  const parent = e.currentTarget.parentElement?.parentElement;
+                  if (parent) {
+                    const fallback = parent.nextElementSibling;
+                    if (fallback) {
+                      fallback.classList.remove('hidden');
+                      fallback.classList.add('flex');
+                    }
+                  }
+                }}
+              />
+            </div>
+            
+            {/* Fallback D Icon - Enhanced with modern styling */}
+            <div className="hidden relative bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 p-4 sm:p-5 rounded-2xl border-2 border-orange-400/30 shadow-2xl shadow-orange-500/40">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center">
+                <span className="text-white font-bold text-xl sm:text-2xl tracking-tight drop-shadow-lg">D</span>
+              </div>
+              {/* Corner accents */}
+              <div className="absolute top-2 right-2 w-2 h-2 bg-white/30 rounded-full"></div>
+              <div className="absolute bottom-2 left-2 w-2 h-2 bg-white/30 rounded-full"></div>
+            </div>
           </div>
+          
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Officer Application</h1>
           <p className="text-sm sm:text-base text-gray-400">Complete the form below to apply for officer access</p>
         </div>
