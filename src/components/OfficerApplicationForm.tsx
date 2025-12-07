@@ -87,62 +87,118 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
 
   if (submissionStatus === 'success') {
     return (
-      <div className="min-h-screen w-full bg-[#0b0c0e] overflow-y-auto">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg p-6 sm:p-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/10 rounded-full mb-4">
-              <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Application Submitted!</h2>
-            <p className="text-sm sm:text-base text-gray-400 mb-6">
-              Your officer application has been submitted successfully. You will receive an email notification once your application has been reviewed and approved by an administrator or engineer.
-            </p>
-            <div className="bg-[#0b0c0e] border border-[#2d2d32] rounded-lg p-4 mb-6">
-              <div className="text-sm text-gray-400 mb-2">Application Reference</div>
-              <div className="text-lg font-mono text-orange-500">APP-{Date.now().toString().slice(-8)}</div>
-            </div>
-            <p className="text-sm text-gray-500 mb-6">
-              Please check your email ({formData.email}) for updates on your application status.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+      <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
+        {/* Header - Sticky */}
+        <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
+          <div className="px-6 py-4">
+            <div className="flex items-center justify-between max-w-7xl mx-auto">
               <button
                 onClick={handleBackToWelcome}
-                className="px-6 py-2 bg-[#2d2d32] hover:bg-[#3a3a42] text-white rounded-lg transition-colors"
+                className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
               >
-                Back to Home
-              </button>
-              <button
-                onClick={() => setSubmissionStatus('idle')}
-                className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
-              >
-                Submit Another Application
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                <span className="font-medium">Back to Welcome</span>
               </button>
             </div>
           </div>
+        </header>
+
+        {/* Success Content - Scrollable */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+            <div className="bg-[#18181b] border border-[#2d2d32] rounded-lg p-6 sm:p-8 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/10 rounded-full mb-4">
+                <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Application Submitted!</h2>
+              <p className="text-sm sm:text-base text-gray-400 mb-6">
+                Your officer application has been submitted successfully. You will receive an email notification once your application has been reviewed and approved by an administrator or engineer.
+              </p>
+              <div className="bg-[#0b0c0e] border border-[#2d2d32] rounded-lg p-4 mb-6">
+                <div className="text-sm text-gray-400 mb-2">Application Reference</div>
+                <div className="text-lg font-mono text-orange-500">APP-{Date.now().toString().slice(-8)}</div>
+              </div>
+              <p className="text-sm text-gray-500 mb-6">
+                Please check your email ({formData.email}) for updates on your application status.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  onClick={handleBackToWelcome}
+                  className="px-6 py-2 bg-[#2d2d32] hover:bg-[#3a3a42] text-white rounded-lg transition-colors"
+                >
+                  Back to Home
+                </button>
+                <button
+                  onClick={() => setSubmissionStatus('idle')}
+                  className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
+                >
+                  Submit Another Application
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Footer */}
+        <footer className="bg-[#18181b] border-t border-[#2d2d32]">
+          <div className="py-6">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="flex flex-col items-center space-y-3">
+                <div className="flex items-center space-x-6 text-sm">
+                  <button
+                    onClick={handleBackToWelcome}
+                    className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
+                  >
+                    Privacy Policy
+                  </button>
+                  <span className="text-gray-700">•</span>
+                  <button
+                    onClick={handleBackToWelcome}
+                    className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
+                  >
+                    Terms of Service
+                  </button>
+                </div>
+                <p className="text-xs text-gray-600">
+                  © 2025 Digital Hub. All rights reserved.
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#0b0c0e] overflow-y-auto">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pb-24">
-        
-        {/* Back Button */}
-        <button
-          onClick={handleBackToWelcome}
-          className="mb-6 text-gray-400 hover:text-white transition-colors flex items-center"
-        >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          <span className="text-sm sm:text-base">Back to Welcome</span>
-        </button>
+    <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
+      {/* Header - Sticky */}
+      <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
+        <div className="px-6 py-4">
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
+            <button
+              onClick={handleBackToWelcome}
+              className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span className="font-medium">Back to Welcome</span>
+            </button>
+          </div>
+        </div>
+      </header>
 
-        {/* Header with Enhanced Logo */}
-        <div className="text-center mb-6 sm:mb-8">
+      {/* Main Content - Scrollable */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        
+          {/* Header with Enhanced Logo */}
+          <div className="text-center mb-6 sm:mb-8">
           {/* Enhanced Logo - Same as Welcome Page */}
           <div className="inline-flex items-center justify-center mb-4 group">
             {/* Animated glow background */}
@@ -436,7 +492,36 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
           </div>
         </form>
 
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-[#18181b] border-t border-[#2d2d32]">
+        <div className="py-6">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="flex items-center space-x-6 text-sm">
+                <button
+                  onClick={handleBackToWelcome}
+                  className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
+                >
+                  Privacy Policy
+                </button>
+                <span className="text-gray-700">•</span>
+                <button
+                  onClick={handleBackToWelcome}
+                  className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
+                >
+                  Terms of Service
+                </button>
+              </div>
+              <p className="text-xs text-gray-600">
+                © 2025 Digital Hub. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
