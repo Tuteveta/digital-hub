@@ -35,7 +35,7 @@ function OfficerDashboard() {
   // Show loading state
   if (loadingRequests || loadingCerts || loadingStats) {
     return (
-      <div className="min-h-screen w-full overflow-y-auto bg-[#0b0c0e] flex items-center justify-center">
+      <div className="h-full w-full overflow-y-auto bg-[#0b0c0e] flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mb-4"></div>
           <p className="text-white text-lg">Loading your dashboard...</p>
@@ -48,7 +48,7 @@ function OfficerDashboard() {
   // Show error state
   if (requestsError || certsError) {
     return (
-      <div className="min-h-screen w-full overflow-y-auto bg-[#0b0c0e] flex items-center justify-center">
+      <div className="h-full w-full overflow-y-auto bg-[#0b0c0e] flex items-center justify-center">
         <div className="text-center max-w-md">
           <svg className="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -67,8 +67,8 @@ function OfficerDashboard() {
   }
 
   return (
-    <div className="min-h-screen w-full overflow-y-auto bg-[#0b0c0e]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20">
+    <div className="h-full w-full overflow-y-auto bg-[#0b0c0e]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 pb-24 sm:pb-20">
         
         {/* Page Header */}
         <div className="mb-6">
