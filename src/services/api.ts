@@ -1,15 +1,21 @@
 // src/services/api.ts
-// API Service for backend integration with AWS Amplify
+// API Service for backend integration with AWS Amplify - FIXED VERSION
 
-import { getCurrentUser } from 'aws-amplify/auth';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
-// Helper function to get auth token
+// Helper function to get auth token - FIXED
 async function getAuthToken(): Promise<string> {
   try {
-    const session = await getCurrentUser();
-    return session.userId; // Adjust based on your Amplify setup
+    const session = await fetchAuthSession();
+    const token = session.tokens?.idToken?.toString();
+    
+    if (!token) {
+      throw new Error('No authentication token available');
+    }
+    
+    return token;
   } catch (error) {
     console.error('Error getting auth token:', error);
     throw error;
@@ -34,8 +40,17 @@ async function apiCall<T>(
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'API call failed');
+      const errorText = await response.text();
+      let errorMessage = 'API call failed';
+      
+      try {
+        const errorJson = JSON.parse(errorText);
+        errorMessage = errorJson.message || errorMessage;
+      } catch {
+        errorMessage = errorText || `HTTP ${response.status}: ${response.statusText}`;
+      }
+      
+      throw new Error(errorMessage);
     }
 
     return await response.json();
