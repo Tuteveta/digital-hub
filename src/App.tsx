@@ -229,9 +229,9 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0b0c0e] text-white">
-      {/* Header */}
-      <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
+    <div className="h-screen overflow-hidden bg-[#0b0c0e] text-white flex flex-col">
+      {/* Header - Fixed height */}
+      <header className="bg-[#18181b] border-b border-[#2d2d32] flex-shrink-0 z-50">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Left - Logo & Title */}
@@ -284,10 +284,10 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <div className="flex">
-        {/* Sidebar Navigation */}
-        <aside className="w-64 bg-[#18181b] border-r border-[#2d2d32] min-h-[calc(100vh-73px)] sticky top-[73px]">
+      {/* Main Content Area - Flex row with sidebar and main */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar Navigation - Fixed width, scrollable if needed */}
+        <aside className="w-64 bg-[#18181b] border-r border-[#2d2d32] flex-shrink-0 overflow-y-auto">
           <nav className="p-4 space-y-2">
             {visibleNavigationItems.map((item) => (
               <button
@@ -307,8 +307,8 @@ function App() {
           </nav>
         </aside>
 
-        {/* Page Content */}
-        <main className="flex-1 p-6">
+        {/* Page Content - Scrollable main area */}
+        <main className="flex-1 overflow-y-auto overflow-x-hidden">
           {renderPage()}
         </main>
       </div>

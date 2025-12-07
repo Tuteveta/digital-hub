@@ -178,21 +178,74 @@ body {
   border-top-color: #f97316 !important;
 }
 
-/* Scrollbar Styling */
+/* ========================================== */
+/* SCROLLBAR STYLING - VISIBLE & PROMINENT   */
+/* ========================================== */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a52 #18181b;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 14px;
+  height: 14px;
 }
 
 ::-webkit-scrollbar-track {
   background: #18181b;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #3a3a42;
-  border-radius: 4px;
+  border-radius: 7px;
+  border: 3px solid #18181b;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #4a4a52;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #5a5a62;
+}
+
+/* Main content area scrollbar - MORE PROMINENT */
+main::-webkit-scrollbar {
+  width: 16px;
+}
+
+main::-webkit-scrollbar-track {
+  background: #0b0c0e;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: #4a4a52;
+  border-radius: 8px;
+  border: 3px solid #0b0c0e;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background: #5a5a62;
+}
+
+main::-webkit-scrollbar-thumb:active {
+  background: #6a6a72;
+}
+
+/* Sidebar scrollbar */
+aside::-webkit-scrollbar {
+  width: 8px;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background: #2d2d32;
+  border-radius: 4px;
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+  background: #3a3a42;
 }
