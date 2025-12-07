@@ -236,6 +236,28 @@ function AuthContent() {
       <div className="min-h-screen w-full bg-[#0b0c0e] flex flex-col">
         <style>{authenticatorStyles}</style>
         
+        {/* Scrollbar Styles */}
+        <style>{`
+          .overflow-y-auto::-webkit-scrollbar {
+            width: 16px;
+          }
+          .overflow-y-auto::-webkit-scrollbar-track {
+            background: #0b0c0e;
+            border-radius: 0;
+          }
+          .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #4a4a52;
+            border-radius: 8px;
+            border: 3px solid #0b0c0e;
+          }
+          .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #5a5a62;
+          }
+          .overflow-y-auto::-webkit-scrollbar-thumb:active {
+            background: #6a6a72;
+          }
+        `}</style>
+        
         {/* Header - Centered Back Button */}
         <header className="bg-[#18181b] border-b border-[#2d2d32] sticky top-0 z-50">
           <div className="px-6 py-4">
@@ -254,14 +276,15 @@ function AuthContent() {
           </div>
         </header>
 
-        {/* Sign In Content */}
-        <div className="flex-1 flex items-center justify-center p-4">
-          <div className="w-full max-w-md">
-            {/* Sign In Heading */}
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">Sign In</h2>
-              <p className="text-gray-400 text-sm">Enter your credentials to continue</p>
-            </div>
+        {/* Sign In Content - Scrollable */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="flex items-center justify-center p-4 min-h-full">
+            <div className="w-full max-w-md">
+              {/* Sign In Heading */}
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-white mb-2">Sign In</h2>
+                <p className="text-gray-400 text-sm">Enter your credentials to continue</p>
+              </div>
 
             {/* Sign In Card */}
             <div className="bg-[#18181b] border border-[#2d2d32] rounded-2xl shadow-2xl p-8 mb-8">
@@ -294,6 +317,7 @@ function AuthContent() {
               />
             </div>
           </div>
+          </div>
         </div>
 
         {/* Footer */}
@@ -305,6 +329,28 @@ function AuthContent() {
   // Welcome Page (Default View)
   return (
     <div className="min-h-screen w-full bg-[#0b0c0e] relative flex flex-col">
+      {/* Scrollbar Styles */}
+      <style>{`
+        .overflow-y-auto::-webkit-scrollbar {
+          width: 16px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+          background: #0b0c0e;
+          border-radius: 0;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+          background: #4a4a52;
+          border-radius: 8px;
+          border: 3px solid #0b0c0e;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+          background: #5a5a62;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:active {
+          background: #6a6a72;
+        }
+      `}</style>
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full opacity-5">
@@ -314,9 +360,10 @@ function AuthContent() {
         </div>
       </div>
 
-      {/* Main Content - Centered */}
-      <div className="relative z-10 flex-1 flex items-center justify-center p-4 py-12">
-        <div className="w-full max-w-5xl">
+      {/* Main Content - Scrollable */}
+      <div className="relative z-10 flex-1 overflow-y-auto">
+        <div className="flex items-center justify-center p-4 py-12 min-h-full">
+          <div className="w-full max-w-5xl">
           {/* Main Card */}
           <div className="bg-[#18181b] border border-[#2d2d32] rounded-3xl shadow-2xl overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
@@ -459,6 +506,7 @@ function AuthContent() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
 

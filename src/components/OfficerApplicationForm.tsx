@@ -490,37 +490,8 @@ function OfficerApplicationForm({ onBack }: OfficerApplicationFormProps) {
             </button>
           </div>
         </form>
-
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-[#18181b] border-t border-[#2d2d32]">
-        <div className="py-6">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex flex-col items-center space-y-3">
-              <div className="flex items-center space-x-6 text-sm">
-                <button
-                  onClick={handleBackToWelcome}
-                  className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
-                >
-                  Privacy Policy
-                </button>
-                <span className="text-gray-700">•</span>
-                <button
-                  onClick={handleBackToWelcome}
-                  className="text-gray-500 hover:text-orange-500 transition-colors cursor-pointer"
-                >
-                  Terms of Service
-                </button>
-              </div>
-              <p className="text-xs text-gray-600">
-                © 2025 Digital Hub. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
